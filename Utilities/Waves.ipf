@@ -71,18 +71,42 @@ End
 
 Function Rescale(w, from, to)
 	Wave w, from, to
+	
+	Variable n = nx(from)
 
-	Make /FREE /N=(nx(from)) left, delta
-	If (ny(from) == 0)
-		delta = DimDelta(w, p)
-	Else
-		delta = DimDelta(w, p) * (to[p][1] - to[p][0])/(from[p][1] - from[p][0])
-	EndIf
+	Make /FREE /N=(n) left, delta, scale_delta
+	delta = DimDelta(w, p)
+	
+	Switch (ny(from))
+	Case 0:
+	Case 1:
+		scale_delta = 1
+		Break
+		
+	Case 2:
+		scale_delta = RescaleDelta(p, from, to)
+		Break
+		
+	Default:
+		Abort "Only need two points to uniquely define a scale!"
+	EndSwitch
 
-	left = to[p][0] - delta[p]/DimDelta(w, p) * (from[p][0] - DimLeft(w, p))
+	left = to[p][0] - scale_delta[p] * (from[p][0] - DimLeft(w, p))
+	delta *= scale_delta
 
-	Variable d
-	For (d = 0; d < nx(delta); d += 1)
-		ScaleSet(w, d, left[d], delta[d], delta=true)
+	Variable i
+	For (i = 0; i < n; i += 1)
+		ScaleSet(w, i, left[i], delta[i], delta=true)
 	EndFor
+End
+
+Static Function RescaleDelta(p, from, to)
+	Variable p
+	Wave from, to
+	
+	If (from[p][0] == from[p][1])
+		Return 1
+	EndIf
+	
+	Return (to[p][1] - to[p][0]) / (from[p][1] - from[p][0])
 End
