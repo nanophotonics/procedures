@@ -83,3 +83,40 @@ Function ProfilePrototype(w, r)
 
 	Abort "Invalid profile function"
 End
+
+Function /WAVE Average(w, [dim, dims])
+	Wave w
+	Variable dim
+	Wave dims
+	
+	If (ParamIsDefault(dims))
+		If (ParamIsDefault(dim))
+			dim = 0
+		EndIf
+		
+		Return Average(w, dims={dim})
+	EndIf
+	
+	Sort /R dims, dims
+		
+	Duplicate /FREE w, total, count
+	Multithread count = !IsNaN(w)
+	Multithread total = count ? w : 0
+	
+	Variable i, n = nx(dims)
+	For (i = 0; i < n; i += 1)
+		dim = dims[i]
+		
+		Integrate /DIM=(dim) total, count
+		
+		Wave new_total = ExtractIndex(total, dim, -1)
+		Wave new_count = ExtractIndex(count, dim, -1)
+		
+		Wave total = new_total
+		Wave count = new_count
+	EndFor
+	
+	Multithread total /= count
+	
+	Return total
+End

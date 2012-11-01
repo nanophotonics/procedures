@@ -110,3 +110,48 @@ Static Function RescaleDelta(p, from, to)
 	
 	Return (to[p][1] - to[p][0]) / (from[p][1] - from[p][0])
 End
+
+Function /WAVE ExtractIndex(data, dim, index)
+	Wave data
+	Variable dim, index
+	
+	If (index < 0)
+		index += DimSize(data, dim)
+	EndIf
+	
+	Make /FREE dims = {0, 1, 2}
+	If (dim < 3)
+		dims[dim,*] += 1
+	EndIf
+	
+	Make /FREE /N=3 ns
+	ns = DimSize(data, dims[p])
+	If (ns[0] < 1)
+		ns[0] = 1
+	EndIf
+	
+	Make /FREE /N=(ns[0], ns[1], ns[2]) result
+	SetScale /P x, DimOffset(data, dims[0]), DimDelta(data, dims[0]), result
+	SetScale /P y, DimOffset(data, dims[1]), DimDelta(data, dims[1]), result
+	SetScale /P z, DimOffset(data, dims[2]), DimDelta(data, dims[2]), result	
+
+	Switch (dim)
+	Case 0:
+		Multithread result = data[index][p][q][r]
+		Break
+		
+	Case 1:
+		Multithread result = data[p][index][q][r]
+		Break
+		
+	Case 2:
+		Multithread result = data[p][q][index][r]
+		Break
+		
+	Case 3:
+		Multithread result = data[p][q][r][index]
+		Break
+	EndSwitch
+	
+	Return result
+End
