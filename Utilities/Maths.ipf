@@ -2,6 +2,7 @@
 #pragma IgorVersion = 6.2
 #pragma rtGlobals = 1
 
+#include "Polar"
 #include "Voigt"
 
 Threadsafe Function deg(rad)
