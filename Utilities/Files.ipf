@@ -20,6 +20,29 @@ Function /S CleanPath(path)
 	Return path
 End
 
+Function /S WindowsPath(path)
+	String path
+	
+	Return ParseFilePath(5, CleanPath(path), "\\", 0, 0)
+End
+
+Function mkdir(path)
+	String path
+	
+	path = CleanPath(path)
+	
+	String current = ""
+	Variable i, n = ItemsInList(path, ":")
+	For (i = 0; i < n; i += 1)
+		current += StringFromList(i, path, ":") + ":"
+		NewPath /Q /Z /C /O temp, current
+		If (V_flag)
+			Abort "Could not create directory"
+		EndIf
+	EndFor
+	KillPath /Z temp
+End
+
 Function /S ListFiles(path, [extension, select, reject])
 	String path, extension, select, reject
 
