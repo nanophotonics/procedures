@@ -2,6 +2,12 @@
 #pragma IgorVersion = 6.2
 #pragma rtGlobals = 1
 
+Function /S NamedPath(name)
+	String name
+	PathInfo $name
+	Return S_path
+End
+
 Function /S CleanPath(path)
 	String path
 
