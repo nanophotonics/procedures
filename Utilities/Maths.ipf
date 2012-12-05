@@ -120,3 +120,34 @@ Function /WAVE Average(w, [dim, dims])
 	
 	Return total
 End
+
+Function /WAVE Integral(w, [dim, dims])
+	Wave w
+	Variable dim
+	Wave dims
+	
+	If (ParamIsDefault(dims))
+		If (ParamIsDefault(dim))
+			dim = 0
+		EndIf
+		
+		Return Average(w, dims={dim})
+	EndIf
+
+	Sort /R dims, dims
+	
+	Duplicate /FREE w, integrand
+	Multithread integrand = IsNaN(w) ? 0 : w
+	
+	Variable i, n = nx(dims)
+	For (i = 0; i < n; i += 1)
+		dim = dims[i]
+		
+		Integrate /DIM=(dim) integrand
+		
+		Wave new_integrand = ExtractIndex(integrand, dim, -1)
+		Wave integrand = new_integrand
+	EndFor
+
+	Return integrand
+End
