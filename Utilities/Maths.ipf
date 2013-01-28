@@ -3,6 +3,7 @@
 #pragma rtGlobals = 1
 
 #include "Polar"
+#include "Gauss"
 #include "Voigt"
 
 Threadsafe Function deg(rad)
