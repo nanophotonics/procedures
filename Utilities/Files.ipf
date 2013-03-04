@@ -1,6 +1,6 @@
 #pragma ModuleName = Files
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Function /S NamedPath(name)
 	String name

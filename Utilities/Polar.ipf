@@ -1,6 +1,6 @@
 #pragma ModuleName = Polar
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Threadsafe Function rph2x(r, ph)
 	Variable r, ph

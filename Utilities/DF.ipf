@@ -1,6 +1,6 @@
 #pragma ModuleName = DF
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 #include "Package"
 

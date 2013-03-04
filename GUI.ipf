@@ -1,6 +1,6 @@
 #pragma ModuleName = GUI
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 #include "Utilities"
 

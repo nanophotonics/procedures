@@ -1,6 +1,6 @@
 #pragma ModuleName = Indices
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Threadsafe Function nx(w)
 	Wave w

@@ -1,6 +1,6 @@
 #pragma ModuleName = Lists
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Function /S List(data, [separator, delimiter])
 	Wave /T data

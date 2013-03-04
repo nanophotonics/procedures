@@ -1,6 +1,6 @@
 #pragma ModuleName = Package
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Static Function New(package, [path])
 	String package

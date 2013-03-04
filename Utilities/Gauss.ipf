@@ -1,6 +1,6 @@
 #pragma ModuleName = Gauss
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Threadsafe Function Gauss2D_xWidth(w)
 	Wave w

@@ -1,6 +1,6 @@
 #pragma ModuleName = Voigt
 #pragma IgorVersion = 6.2
-#pragma rtGlobals = 1
+#pragma rtGlobals = 3
 
 Static Constant C1 = 0.53460
 Static Constant C2 = 0.21660
